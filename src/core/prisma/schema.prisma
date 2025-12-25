@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Empresa {
+  id Int @id @default(autoincrement())
+  nome String @db.VarChar(255)
+  slug String @db.VarChar(255)
+  ativo Boolean @default(true)
+
+  users User[]
+  categorias Categoria[]
+  produtos Produto[]
+  pedidos Pedido[]
+
+  @@map("empresas")
+}
+
+model User {
+  id Int @id @default(autoincrement()) 
+  name String
+  email String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
+  empresa_id Int 
+  empresa Empresa @relation(fields: [empresa_id],references: [id])
+
+  @@map("users")
+  @@index([empresa_id])
+}
+
+model Categoria {
+  id Int @id @default(autoincrement())
+  empresa_id Int
+  nome String
+  ativa Boolean @default(true)
+  empresa Empresa @relation(fields: [empresa_id],references: [id])
+
+  @@map("categorias")
+  @@index([empresa_id])
+}
+
+model Produto {
+  id Int @id @default(autoincrement())
+  empresa_id Int
+  categoria_id Int
+  empresa Empresa @relation(fields: [empresa_id],references: [id])
+
+  produto ProdutoHasPedido[]
+
+  @@map("produtos")
+  @@index([empresa_id])
+  @@index([categoria_id])
+}
+
+model Pedido {
+  id Int @id @default(autoincrement())
+  numero Int 
+  total Float
+  empresa_id Int
+  empresa Empresa @relation(fields: [empresa_id],references: [id])
+
+  pedido ProdutoHasPedido[]
+
+  @@map("pedidos")
+  @@index([empresa_id])
+}
+
+model ProdutoHasPedido {
+  id Int @id @default(autoincrement())
+  produto_id Int
+  pedido_id Int
+  preco_snapshot Float
+  nome_snapshot String
+  produto Produto @relation(fields: [produto_id], references: [id])
+  pedido Pedido @relation(fields: [pedido_id], references: [id])
+
+  @@map("produto_has_pedido")
+  @@index([produto_id])
+  @@index([pedido_id])
+}
