@@ -6,12 +6,14 @@ generator client {
 datasource db {
   provider = "mysql"
 }
-
 model Empresa {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   nome String @db.VarChar(255)
-  slug String @db.VarChar(255)
+  slug String @db.VarChar(255) @unique
   ativo Boolean @default(true)
+  inicio_exp DateTime @db.Time(0)
+  fim_exp DateTime @db.Time(0)
 
   users User[]
   categorias Categoria[]
@@ -23,6 +25,7 @@ model Empresa {
 
 model User {
   id Int @id @default(autoincrement()) 
+  createdAt DateTime @default(now())
   name String
   email String @unique @db.VarChar(255)
   password String @db.VarChar(255)
@@ -35,10 +38,13 @@ model User {
 
 model Categoria {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   empresa_id Int
   nome String
   ativa Boolean @default(true)
   empresa Empresa @relation(fields: [empresa_id],references: [id])
+
+  produtos Produto[]
 
   @@map("categorias")
   @@index([empresa_id])
@@ -46,9 +52,11 @@ model Categoria {
 
 model Produto {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   empresa_id Int
   categoria_id Int
   empresa Empresa @relation(fields: [empresa_id],references: [id])
+  categoria Categoria @relation(fields: [categoria_id],references: [id])
 
   produto ProdutoHasPedido[]
 
@@ -59,6 +67,7 @@ model Produto {
 
 model Pedido {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   numero Int 
   total Float
   empresa_id Int
@@ -72,6 +81,7 @@ model Pedido {
 
 model ProdutoHasPedido {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
   produto_id Int
   pedido_id Int
   preco_snapshot Float
