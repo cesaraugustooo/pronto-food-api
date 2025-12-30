@@ -1,12 +1,24 @@
-import { empresaCreate } from "../services/empresaService.js";
-import { createdSchema } from "../schemas/RegisterSchema.js";
+import { loginService, registerService } from "../services/authService.js";
 
-export async function register(req,res,next) {
+export const register = async (req,res,next) => {
     try {
         const data = req.body;
-        const result = await empresaCreate(data);
 
-        return res.json({ data: data });            
+        const result = await registerService(data);
+
+        return res.json({user: result.user, empresa: result.empresa});
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const login = async (req,res,next) => {
+    try {
+        const data = req.body;
+
+        const user = await loginService(data);
+
+        return res.json({token: user});
     } catch (error) {
         next(error)
     }
