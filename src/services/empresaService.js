@@ -1,27 +1,22 @@
-import { create as empresaCreateModel } from "../models/EmpresaModel.js";
-import { create as userCreateModel }  from "../models/UserModel.js";
 import { prisma } from "../core/database.js";
-import { AppError } from "../errors/errorHandler.js";
+import { AppError, NotFounError } from "../errors/errorHandler.js";
+import { index, show, update } from "../models/EmpresaModel.js";
 
-export const empresaCreate = async (data) => {
-    const user = await prisma.user.findUnique({
-        where:{
-            email: data.user.email
-        }
-    });
-    
-    if(user){
-        throw new AppError("Email ja cadastrado por outro usuario.",400);
+export const indexService = async (user) => {
+    return await index(user);
+}
+
+export const updateService = async (id,data) =>{
+    const empresa = await update(id,data);
+    return empresa;
+} 
+
+export const showService = async (slug) =>{
+    const empresa = await show(slug);
+
+    if(!empresa){
+        throw new AppError("Empresa nao encontrada, tente novamente mais tarde.",404)
     }
 
-    const result = await prisma.$transaction(
-        async (tx) => {
-            const empresaCreated = await empresaCreateModel(tx,data.empresa)
-            const userCreated = await userCreateModel(tx,{ ...data.user,empresa_id: empresaCreated.id })
-
-            return { empresa: empresaCreated, user: userCreated }
-        }
-    )
-
-    return result
-}
+    return empresa;   
+} 
