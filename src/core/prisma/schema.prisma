@@ -12,8 +12,8 @@ model Empresa {
   nome String @db.VarChar(255)
   slug String @db.VarChar(255) @unique
   ativo Boolean @default(true)
-  inicio_exp DateTime @db.Time(0)
-  fim_exp DateTime @db.Time(0)
+  inicio_exp String 
+  fim_exp String 
 
   users User[]
   categorias Categoria[]
@@ -41,8 +41,8 @@ model Categoria {
   createdAt DateTime @default(now())
   empresa_id Int
   nome String
-  ativa Boolean @default(true)
-  empresa Empresa @relation(fields: [empresa_id],references: [id])
+  ativo Boolean @default(true)
+  empresa Empresa @relation(fields: [empresa_id],references: [id], onDelete: Cascade)
 
   produtos Produto[]
 
@@ -57,7 +57,10 @@ model Produto {
   categoria_id Int
   empresa Empresa @relation(fields: [empresa_id],references: [id])
   categoria Categoria @relation(fields: [categoria_id],references: [id])
-
+  nome String
+  ativo Boolean @default(true)
+  descricao String? @db.Text 
+  image String? @db.LongText  
   produto ProdutoHasPedido[]
 
   @@map("produtos")
