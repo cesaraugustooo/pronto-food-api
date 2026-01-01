@@ -1,0 +1,27 @@
+import { create, update, index, show, destroy } from "../models/produtoModel.js"
+
+export const indexService = async () => {
+
+}
+
+export const showService = async ({id}) => {
+    const produto = await show({id});
+
+    return produto;
+}
+
+export const createService = async ({empresa_id, categoria_id, data}) => {
+    const produto = await create({empresa_id, categoria_id, data});
+
+    return produto;
+}
+
+export const updateService = async ({ id, data }) => {
+    const produto = await update({ id , data});
+
+    return produto;
+}
+
+export const deleteService = async ({id}) => {
+    await destroy({id});
+}
