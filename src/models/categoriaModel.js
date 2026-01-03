@@ -1,5 +1,20 @@
 import { prisma } from "../core/database.js";
 
+export const index = async ({ empresa_id, skip, take }) => {
+    const [categorias,total] = await prisma.$transaction([
+        prisma.categoria.findMany({
+            where: { empresa_id: empresa_id },
+            include: { produtos: true },
+            skip,take    
+        }),
+        prisma.categoria.count()
+    ]);
+
+    const totalPage = Math.ceil( total / take );
+
+    return {total, totalPage, categorias};
+}
+
 export const create = async ({ empresa_id, data }) => {
     const empresa = Number(empresa_id);
 
