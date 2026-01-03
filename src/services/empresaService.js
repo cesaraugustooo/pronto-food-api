@@ -1,5 +1,5 @@
 import { prisma } from "../core/database.js";
-import { AppError, NotFounError } from "../errors/errorHandler.js";
+import { AppError } from "../errors/errorHandler.js";
 import { index, show, update } from "../models/EmpresaModel.js";
 
 export const indexService = async (user) => {
