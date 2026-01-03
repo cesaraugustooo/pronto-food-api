@@ -1,5 +1,11 @@
-import { create, destroy, show, update } from "../models/categoriaModel.js"
+import { create, destroy, index, show, update } from "../models/categoriaModel.js"
 import { AppError } from "../errors/errorHandler.js";
+
+export const indexService = async ({ empresa_id, take, skip }) => {
+    const categorias = await index({empresa_id, take, skip});
+
+    return categorias;
+}
 
 export const storeService = async ({ empresa_id, data}) => {
     const categoria = await create({empresa_id: empresa_id, data: data});
