@@ -68,11 +68,22 @@ model Produto {
   @@index([categoria_id])
 }
 
+enum PedidoStatus {
+  Pendente
+  Em_Producao
+  Pronto  
+}
+
 model Pedido {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   numero Int 
+  nome_cliente String
+  telefone_cliente String
+  endereco_cliente String
+  observacoes_cliente String?
   total Float
+  status PedidoStatus @default(Pendente)
   empresa_id Int
   empresa Empresa @relation(fields: [empresa_id],references: [id])
 
