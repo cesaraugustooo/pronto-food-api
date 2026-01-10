@@ -1,6 +1,6 @@
 import { prisma } from "../core/database.js";
 import { AppError } from "../errors/errorHandler.js";
-import { index, show, update } from "../models/EmpresaModel.js";
+import { index, show, update } from "../models/empresaModel.js";
 
 export const indexService = async (user) => {
     return await index(user);
