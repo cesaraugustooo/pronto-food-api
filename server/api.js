@@ -5,7 +5,7 @@ import { app as empresaRouter } from "../src/routes/empresaRouter.js";
 import { app as categoriaRouter } from "../src/routes/categoriaRoute.js";
 import { app as produtoRouter } from "../src/routes/produtoRoute.js";
 import { app as pedidoRoute} from "../src/routes/pedidoRoute.js";
-import { errorMiddleware } from "../src/middlewares/ErrorMiddleware.js";
+import { errorMiddleware } from "../src/middlewares/errorMiddleware.js";
 
 const app = express()
 

@@ -1,8 +1,8 @@
 import { prisma } from "../core/database.js"
 import bcrypt from "bcrypt";
 import { AppError } from "../errors/errorHandler.js";
-import { create as userCreate } from "../models/UserModel.js";
-import { create as empresaCreate } from "../models/EmpresaModel.js";
+import { create as userCreate } from "../models/userModel.js";
+import { create as empresaCreate } from "../models/empresaModel.js";
 import { createToken } from "./jwtService.js";
 
 export const loginService = async (data,params) => {
