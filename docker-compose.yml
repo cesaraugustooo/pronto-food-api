@@ -1,0 +1,15 @@
+services:
+  app:
+    image: pronto-food-api-build
+    ports:
+      - "3000:3000"
+    
+  db:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+
