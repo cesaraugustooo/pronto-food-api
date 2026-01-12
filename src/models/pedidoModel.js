@@ -24,9 +24,14 @@ export const create = async ({ empresa_id, data }) => {
          }
       )
 
+      return pedido;
 }
 
 
 export const show = async ({ id }) => {
+   return await prisma.pedido.findUnique({where:{ id: Number(id) }});
+}
+
+export const update = async ({ id }) => {
 
 }
