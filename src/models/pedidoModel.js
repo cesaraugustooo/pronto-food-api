@@ -31,7 +31,3 @@ export const create = async ({ empresa_id, data }) => {
 export const show = async ({ id }) => {
    return await prisma.pedido.findUnique({where:{ id }});
 }
-
-export const update = async ({ id }) => {
-
-}
