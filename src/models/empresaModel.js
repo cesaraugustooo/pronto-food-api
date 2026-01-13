@@ -6,7 +6,7 @@ export const create = async (prismaClient, data) => {
 
 export const update = async (id,data) => {
     const empresa = await prisma.empresa.update({
-        where: {id: Number(id)},
+        where: {id: (id)},
         data: data
     })
 

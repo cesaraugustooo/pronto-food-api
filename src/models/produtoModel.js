@@ -6,7 +6,7 @@ export const index = async () => {
 
 export const show = async ({id}) => {
     const produto =  await prisma.produto.findUnique({
-        where: { id: Number(id) },
+        where: { id: id },
         limit
     });
 
@@ -23,7 +23,7 @@ export const create = async ({ empresa_id, categoria_id, data }) => {
 
 export const update = async ({ id, data }) => {
     const produto = await prisma.produto.update({
-        where: { id: Number(id)},
+        where: { id: id},
         data: data
     });
 
@@ -32,7 +32,7 @@ export const update = async ({ id, data }) => {
 
 export const destroy = async ({id}) => {
     await prisma.produto.update({
-        where: { id: Number(id) },
+        where: { id: id },
         data: {
             ativo: false
         }

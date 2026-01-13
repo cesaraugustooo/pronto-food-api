@@ -6,8 +6,9 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+
 model Empresa {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
   nome String @db.VarChar(255)
   slug String @db.VarChar(255) @unique
@@ -24,12 +25,12 @@ model Empresa {
 }
 
 model User {
-  id Int @id @default(autoincrement()) 
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
   name String
   email String @unique @db.VarChar(255)
   password String @db.VarChar(255)
-  empresa_id Int 
+  empresa_id String 
   empresa Empresa @relation(fields: [empresa_id],references: [id])
 
   @@map("users")
@@ -37,9 +38,9 @@ model User {
 }
 
 model Categoria {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
-  empresa_id Int
+  empresa_id String
   nome String
   ativo Boolean @default(true)
   empresa Empresa @relation(fields: [empresa_id],references: [id], onDelete: Cascade)
@@ -51,10 +52,10 @@ model Categoria {
 }
 
 model Produto {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
-  empresa_id Int
-  categoria_id Int
+  empresa_id String
+  categoria_id String
   empresa Empresa @relation(fields: [empresa_id],references: [id])
   categoria Categoria @relation(fields: [categoria_id],references: [id])
   nome String
@@ -75,7 +76,7 @@ enum PedidoStatus {
 }
 
 model Pedido {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
   numero Int 
   nome_cliente String
@@ -84,7 +85,7 @@ model Pedido {
   observacoes_cliente String?
   total Float
   status PedidoStatus @default(Pendente)
-  empresa_id Int
+  empresa_id String
   empresa Empresa @relation(fields: [empresa_id],references: [id])
 
   pedido ProdutoHasPedido[]
@@ -94,10 +95,10 @@ model Pedido {
 }
 
 model ProdutoHasPedido {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   createdAt DateTime @default(now())
-  produto_id Int
-  pedido_id Int
+  produto_id String
+  pedido_id String
   preco_snapshot Float
   nome_snapshot String
   produto Produto @relation(fields: [produto_id], references: [id])

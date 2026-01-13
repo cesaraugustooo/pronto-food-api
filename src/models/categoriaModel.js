@@ -16,7 +16,7 @@ export const index = async ({ empresa_id, skip, take }) => {
 }
 
 export const create = async ({ empresa_id, data }) => {
-    const empresa = Number(empresa_id);
+    const empresa = (empresa_id);
 
     const categoria = await prisma.categoria.create({data: {...data,empresa_id: empresa}});
 
@@ -25,7 +25,7 @@ export const create = async ({ empresa_id, data }) => {
 
 export const show = async ({ id }) => {
     const categoria = await prisma.categoria.findUnique({
-        where:{ id: Number(id), ativo: true },
+        where:{ id: id, ativo: true },
         include: { produtos: true }
     });
 
@@ -34,7 +34,7 @@ export const show = async ({ id }) => {
 
 export const update = async ({ id, data }) => {
     const categoria = await prisma.categoria.update({
-        where:{ id: Number(id)},
+        where:{ id: id},
         data: data
     })
 
@@ -43,7 +43,7 @@ export const update = async ({ id, data }) => {
 
 export const destroy = async ({ id }) => {
     const categoria = await prisma.categoria.update({
-        where:{ id: Number(id)},
+        where:{ id: id},
         data: {
             ativo: false
         }

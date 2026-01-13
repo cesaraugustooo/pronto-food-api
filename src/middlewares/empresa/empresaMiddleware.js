@@ -26,7 +26,7 @@ export const ownerMiddleware = ({compare}) =>
         const user = req.user;
 
         if(compare){
-            const compare_id = Number(req.params[compare])
+            const compare_id = req.params[compare]
 
             if(!compare_id){
                 return res.status(404).json({message: "Parametro de comparacao não encontrado."});

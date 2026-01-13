@@ -6,7 +6,7 @@ export const register = async (req,res,next) => {
 
         const result = await registerService(data);
 
-        return res.json({user: result.user, empresa: result.empresa});
+        return res.json({message: "Cadastro efetuado com sucesso!!!"});
     } catch (error) {
         next(error)
     }
