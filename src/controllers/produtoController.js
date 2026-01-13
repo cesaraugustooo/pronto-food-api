@@ -1,4 +1,4 @@
-import { createService, indexService, updateService, deleteService } from "../services/produtoService.js";
+import { createService, updateService, deleteService } from "../services/produtoService.js";
 
 export const index = async () => {
 
