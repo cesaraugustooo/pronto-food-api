@@ -1,9 +1,5 @@
 import { prisma } from "../core/database.js";
 
-export const index = async () => {
-    //Paginate
-}
-
 export const show = async ({id}) => {
     const produto =  await prisma.produto.findUnique({
         where: { id: id },
@@ -37,4 +33,9 @@ export const destroy = async ({id}) => {
             ativo: false
         }
     });
+}
+
+export const findMany = async ({ ids, empresa_id }) => {
+
+  return prisma.produto.findMany({ where: { empresa_id, id: { in: ids } }, select: {nome: true} })
 }
