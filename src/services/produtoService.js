@@ -1,8 +1,4 @@
-import { create, update, index, show, destroy } from "../models/produtoModel.js"
-
-export const indexService = async () => {
-
-}
+import { create, update, show, destroy } from "../models/produtoModel.js"
 
 export const showService = async ({id}) => {
     const produto = await show({id});
