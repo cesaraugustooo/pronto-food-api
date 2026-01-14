@@ -56,6 +56,7 @@ model Produto {
   createdAt DateTime @default(now())
   empresa_id String
   categoria_id String
+  preco Float
   empresa Empresa @relation(fields: [empresa_id],references: [id])
   categoria Categoria @relation(fields: [categoria_id],references: [id])
   nome String
