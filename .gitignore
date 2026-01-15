@@ -4,3 +4,4 @@ node_modules
 
 /src/core/generated/prisma
 LEIAME.txt
+./dist
