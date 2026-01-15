@@ -7,7 +7,6 @@ export const pedidoCreateDTO =z.object({
         telefone_cliente: string().max(12),
         endereco_cliente: string().max(191),
         observacoes_cliente:string().max(191),
-        total: float32()
     }).strict(),
     produtos: z.object({
         ids: array(z.string().uuid())

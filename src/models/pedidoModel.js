@@ -16,8 +16,12 @@ export const create = async ({ empresa_id, data, produtosData }) => {
 
             const numero = (ultimo?.numero ?? 0) + 1
 
+            let totalPedido =  0;
+
+            produtosData.map(produto => totalPedido += produto.preco_snapshot);
+
             const pedido = await tx.pedido.create({
-               data: { ...data, empresa_id, numero }
+               data: { ...data, empresa_id, numero, total: totalPedido}
             })
 
             const insertProduts = produtosData.map(produto => ({...produto, pedido_id: pedido.id}));
