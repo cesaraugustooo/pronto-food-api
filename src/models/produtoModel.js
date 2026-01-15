@@ -36,6 +36,5 @@ export const destroy = async ({id}) => {
 }
 
 export const findMany = async ({ ids, empresa_id }) => {
-
-  return prisma.produto.findMany({ where: { empresa_id, id: { in: ids } }, select: {id: true, nome: true, preco: true} })
+    return await prisma.produto.findMany({ where: { id: { in: ids },empresa_id }, select: {id: true, nome: true, preco: true} })
 }
