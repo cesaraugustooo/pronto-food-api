@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { verifyToken } from "../middlewares/auth/verifyToken.js"
 import { ownerMiddleware } from "../middlewares/empresa/empresaMiddleware.js";
-import { create, destroy, show, update } from "../controllers/produtoController.js";
+import { create, destroy, show, update, viewProductsPublic } from "../controllers/produtoController.js";
 import { validated } from "../middlewares/validatedZod.js";
 import * as produtoSchema from "../dtos/produtoDTO.js";
 
 const app = Router();
+
+app.get('/public/:categoria',viewProductsPublic);
 
 app.use(verifyToken);
 

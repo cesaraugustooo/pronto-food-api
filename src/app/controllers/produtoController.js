@@ -1,7 +1,18 @@
-import { createService, updateService, deleteService } from "../services/produtoService.js";
+import { createService, updateService, deleteService, indexService } from "../services/produtoService.js";
+import { getPaginateParams } from "../utils/paginate.js";
 
-export const index = async () => {
+export const viewProductsPublic = async (req,res,next) => {
+    try {
+        const categoria = req.params.categoria
+        const paginate = getPaginateParams(req);
 
+        const produtos = await indexService({ categoria, skip: paginate.skip, take: paginate.take }); 
+
+        return res.json(produtos);
+
+    } catch (error) {
+        next(error)
+    }
 }
 
 export const show = async (req,res,next) => {
