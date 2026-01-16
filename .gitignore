@@ -2,6 +2,6 @@ node_modules
 # Keep environment variables out of version control
 .env
 
-./src/app/core/generated/prisma
+src/app/core/generated/prisma
 LEIAME.txt
-./dist
+dist
