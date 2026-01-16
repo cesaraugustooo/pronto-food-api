@@ -1,5 +1,25 @@
 import { prisma } from "../core/database.js";
 
+export const finByCategory = async ({ categoria, skip, take }) => {
+    
+    const [produtos,total] = await prisma.$transaction([
+        
+        prisma.produto.findMany({
+            where: { categoria_id: categoria,ativo: true},
+            skip,take
+        }),
+        prisma.produto.count({
+            where: { categoria_id: categoria,ativo: true}
+        })
+
+    ])
+
+    const totalPage = Math.ceil( total / take );
+
+    return {total, totalPage, produtos};
+
+}
+
 export const show = async ({id}) => {
     const produto =  await prisma.produto.findUnique({
         where: { id: id },
