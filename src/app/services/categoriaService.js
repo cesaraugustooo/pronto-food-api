@@ -7,8 +7,8 @@ export const indexService = async ({ empresa_id, take, skip }) => {
     return categorias;
 }
 
-export const storeService = async ({ empresa_id, data}) => {
-    const categoria = await create({empresa_id: empresa_id, data: data});
+export const storeService = async ({ data }) => {
+    const categoria = await create({ data: data});
 
     return categoria;
 }
