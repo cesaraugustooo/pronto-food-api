@@ -14,10 +14,9 @@ export const index = async (req,res,next) => {
 
 export const store = async (req,res,next) => {
     try{
-        const data = req.body;
-        const empresa_id = req.user.empresa_id;
+        const data = { ...req.body,empresa_id: req.user.empresa_id}
 
-        const empresa = await storeService({ empresa_id, data});
+        const empresa = await storeService({ data });
     
         return res.json(empresa);
     }catch(error){

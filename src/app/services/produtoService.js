@@ -6,8 +6,8 @@ export const showService = async ({id}) => {
     return produto;
 }
 
-export const createService = async ({empresa_id, categoria_id, data}) => {
-    const produto = await create({empresa_id, categoria_id, data});
+export const createService = async ({ data}) => {
+    const produto = await create({ data });
 
     return produto;
 }

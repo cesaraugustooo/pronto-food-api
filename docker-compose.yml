@@ -3,7 +3,8 @@ services:
     image: pronto-food-api-build
     ports:
       - "3000:3000"
-    
+    volumes:
+      - .:/home/cesar/pronto-food-api
   db:
     image: mysql:8
     ports:

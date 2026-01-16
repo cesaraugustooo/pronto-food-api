@@ -1,8 +1,9 @@
 import { show } from "../models/empresaModel.js";
 import { create, show as showPedido } from "../models/pedidoModel.js";
 import { AppError } from "../errors/errorHandler.js";
+import { createService as produtoHasPedidoCReateService } from "./pedidoHasProdutoService.js";
 
-export const storeService = async ({slug,data}) => {
+export const storeService = async ({slug, data, produtosData}) => {
     const empresa = await show(slug);
 
     if(!empresa){
@@ -11,7 +12,9 @@ export const storeService = async ({slug,data}) => {
 
     for(let i = 0; i < 3; i++){
         try {
-            const pedido = await create({empresa_id: empresa.id, data}); 
+            const produtosInsertion = await produtoHasPedidoCReateService({data: produtosData, empresa_id: empresa.id});
+            const {pedido,produtos} = await create({empresa_id: empresa.id, data, produtosData: produtosInsertion}); 
+            
             return pedido;
         } catch (error) {
             if(error.code !== "P2034"){

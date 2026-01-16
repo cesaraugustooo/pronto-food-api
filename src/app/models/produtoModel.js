@@ -9,9 +9,9 @@ export const show = async ({id}) => {
     return produto;
 }
 
-export const create = async ({ empresa_id, categoria_id, data }) => {
+export const create = async ({  data }) => {
     const produto = await prisma.produto.create({
-        data:{ ...data, empresa_id: empresa_id, categoria_id: categoria_id }
+        data:{ ...data, empresa_id: data.empresa_id, categoria_id: data.categoria_id }
     });
 
     return produto;
@@ -36,6 +36,5 @@ export const destroy = async ({id}) => {
 }
 
 export const findMany = async ({ ids, empresa_id }) => {
-
-  return prisma.produto.findMany({ where: { empresa_id, id: { in: ids } }, select: {id: true, nome: true, preco: true} })
+    return await prisma.produto.findMany({ where: { id: { in: ids },empresa_id }, select: {id: true, nome: true, preco: true} })
 }

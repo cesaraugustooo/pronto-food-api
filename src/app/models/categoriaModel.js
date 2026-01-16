@@ -15,8 +15,8 @@ export const index = async ({ empresa_id, skip, take }) => {
     return {total, totalPage, categorias};
 }
 
-export const create = async ({ empresa_id, data }) => {
-    const empresa = (empresa_id);
+export const create = async ({ data }) => {
+    const empresa = data.empresa_id;
 
     const categoria = await prisma.categoria.create({data: {...data,empresa_id: empresa}});
 

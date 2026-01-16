@@ -2,10 +2,11 @@ import { showService, storeService } from "../services/pedidoService.js"
 
 export const store = async (req,res,next) => {
     try {
-        const slug = req.params.slug
-        const data = req.body
+        const slug = req.params.slug;
+        const pedidoBody = req.body.pedido;
+        const produtos = req.body.produtos;
 
-        const pedido = await storeService({slug,data});
+        const pedido = await storeService({slug,data: pedidoBody,produtosData: produtos.ids});
 
         return res.json(pedido);
     } catch (error) {

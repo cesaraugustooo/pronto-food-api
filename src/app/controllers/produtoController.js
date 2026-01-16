@@ -16,11 +16,9 @@ export const show = async (req,res,next) => {
 
 export const create = async (req,res,next) => {
     try {
-        const empresa_id = req.user.empresa_id;
-        const categoria_id = req.resource.id;
-        const data = req.body;
+        const data = {...req.body, empresa_id: req.user.empresa_id, categoria_id: req.resource.id};
         
-        const produto = await createService({empresa_id, categoria_id, data})
+        const produto = await createService({ data })
 
         return res.json(produto);
 

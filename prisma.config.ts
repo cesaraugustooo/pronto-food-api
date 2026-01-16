@@ -3,12 +3,18 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+const url: string | undefined = process.env["DATABASE_URL"] 
+
+if(!url){
+  throw new Error("DATABSE_URL invalido");
+}
+
 export default defineConfig({
   schema: "src/core/prisma/schema.prisma",
   migrations: {
     path: "src/core/prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    url: url 
   },
 });
