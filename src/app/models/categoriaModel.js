@@ -7,7 +7,7 @@ export const index = async ({ empresa_id, skip, take }) => {
             include: { produtos: true },
             skip,take    
         }),
-        prisma.categoria.count()
+        prisma.categoria.count({  where: { empresa_id: empresa_id },})
     ]);
 
     const totalPage = Math.ceil( total / take );
